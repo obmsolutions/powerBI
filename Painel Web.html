@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Navegação</title>
+    <style>
+        /* Estilos para o formulário de login */
+        #loginForm {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #loginForm label {
+            font-family: Arial, sans-serif; /* Definir a fonte */
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #loginForm input, #loginForm select {
+            width: calc(100% - 10px);
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #loginForm button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #002060;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Estilos para os botões de navegação */
+        #navegacao button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #002060;
+            color: #fff;
+            font-family: Arial, sans-serif; /* Definir a fonte */
+            font-size: 12px;  /* Ajustar o tamanho da fonte conforme necessário */
+        }
+
+        /* Estilos para os ícones */
+        #navegacao img {
+            width: 24px; /* Ajuste o tamanho conforme necessário */
+            height: 24px; /* Ajuste o tamanho conforme necessário */
+            vertical-align: middle; /* Centraliza o ícone verticalmente */
+            margin-right: 5px; /* Adiciona um pequeno espaço entre o ícone e o texto do botão */
+            filter: brightness(0) invert(1); /* Inverter a cor da imagem para branco */
+        }
+
+        /* Estilos para o iframe */
+        .conteudo-iframe {
+            width: 100%;
+            max-width: 35cm;
+            height: 12cm;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        /* Estilos para a mensagem de sucesso */
+        #sucesso {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            padding: 20px;
+            background-color: #28a745;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Formulário para acessar o painel de controle -->
+    <form id="loginForm">
+        <label for="usuario">Usuário:</label>
+        <select id="usuario" name="usuario">
+            <option value="analista">Analista</option>
+            <option value="coordenacao">Coordenação</option>
+            <option value="gerencia">Gerência</option>
+            <option value="excelencia">Excelência</option>
+            <option value="admin">Admin</option>
+        </select>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha">
+        <button type="button" onclick="verificarLogin()">Entrar</button>
+    </form>
+
+    <!-- Mensagem de sucesso -->
+    <div id="sucesso">Login realizado com sucesso!</div>
+
+    <!-- Botões de navegação -->
+    <div id="navegacao" style="display: none;">
+
+        <!-- Adicione imagens aos botões -->
+    <button onclick="carregarPagina('https://app.powerbi.com/reportEmbed?reportId=1a4205aa-9b75-43ed-b904-4e07c395a60d&appId=24c347ee-c403-423c-bae3-a33610234ae5&autoAuth=true&ctid=c4722be1-630a-4fbf-b592-a2128a1b4171')"><img src="icone1.png" alt="Ícone 1"> Acomp. Produção</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiYjM5YTdlODItYjA0ZC00M2MwLWI1NjQtYWNkZTdjYzE5ZGJmIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone2.png" alt=""> OEE</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiMjliZWMyZDMtYTQyOS00YmQ3LTlkMTgtNmEyMTdmZGE5ZDdjIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone3.png" alt=""> Painel Máquina</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiOWRlY2E0NWQtOTg4Yi00NDkxLTlkYzctYmEwODFiYzJmNmI1IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone4.png" alt=""> Reprocesso</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiNTg1MWM3YjAtYjE4Ni00NDdhLWFiY2EtMjg3OGJhYmNkMTU5IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone4.png" alt=""> Manutenção</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiYTNmYjE1MGItNmRkMC00MjdiLThlZDAtMzdkY2Y3ZDRjMDk5IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone5.png" alt=""> Materiais</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiOTlhYjI3YjktYTczNy00YjE2LWJkZDQtYWZiZjUxYWMxYmU3IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone6.png" alt=""> Lead-Time</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiZGRkZmE4MzEtZWY5MC00OTI3LTliNDgtMTBmMTAzMDU3YWNhIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone7.png" alt=""> Perda</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/reportEmbed?reportId=c256e85b-2560-4829-aba9-58da0ad794d8&autoAuth=true&ctid=c4722be1-630a-4fbf-b592-a2128a1b4171')"><img src="icone8.png" alt=""> Histórico Produção</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiNGEzOGE4ZjgtMzFmOS00Yjg5LTgyOWMtY2NlYWM3ZTFjZGQwIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone9.png" alt=""> Raio-X</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiYjZmNDRhZWEtYjUwYi00YzJlLWJiMzktZTQ2NTczNjllM2FkIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone10.png" alt=""> Dados Kaizen</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiZTcwNTgzMDItZjZkNC00YzIxLWE0Y2UtZDY3MTgyNGVhNjRmIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone11.png" alt=""> Nº de Paradas</button>
+
+        <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiNjY5MjU1Y2UtZjBjYi00ZWFkLThiOTctNjQ2ZTYxODdjNmUyIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone12.png" alt=""> Padronização</button>
+        <!-- Adicione mais botões com imagens conforme necessário -->
+ </div>
+
+    <!-- Área de conteúdo -->
+    <div id="conteudo"></div>
+
+    <script>
+        // Objeto com os usuários e senhas
+        var usuarios = {
+            'analista': 'Geolab@1',
+            'coordenacao': 'Geolab@2',
+            'gerencia': 'Geolab@3',
+            'excelencia': 'Geolab@4',
+            'admin': 'Geolab@5'
+        };
+
+        // Função para verificar o login
+        function verificarLogin() {
+            var usuarioSelecionado = document.getElementById('usuario').value;
+            var senhaDigitada = document.getElementById('senha').value;
+
+            // Verificar se a senha digitada corresponde à senha correta
+            if (usuarios[usuarioSelecionado] === senhaDigitada) {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('sucesso').style.display = 'block';
+                document.getElementById('navegacao').style.display = 'block';
+                
+                // Ocultar a mensagem de sucesso após 2 segundos
+                setTimeout(function() {
+                    document.getElementById('sucesso').style.display = 'none';
+                }, 2000);
+            } else {
+                alert('Senha incorreta. Tente novamente.');
+            }
+        }
+
+        // Função para carregar o conteúdo da página dentro da área de conteúdo
+        function carregarPagina(url) {
+            var conteudo = document.getElementById('conteudo');
+            conteudo.innerHTML = ''; // Limpa o conteúdo atual
+            var iframe = document.createElement('iframe');
+            iframe.classList.add('conteudo-iframe');
+            iframe.src = url;
+            conteudo.appendChild(iframe);
+        }
+    </script>
+</body>
+</html>
