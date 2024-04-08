@@ -68,8 +68,8 @@
         /* Estilos para o iframe */
         .conteudo-iframe {
             width: 100%;
-            max-width: 35cm;
-            height: 12cm;
+            max-width: 33cm;
+            height: 14cm;
             border: 1px solid #ccc;
             margin-top: 20px;
         }
@@ -86,6 +86,20 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #fff;
+        }
+
+        /* Estilos para o botão voltar */
+        #voltar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #002060;
+            color: #fff;
+            cursor: pointer;
+            display: none; /* Ocultar inicialmente */
         }
     </style>
 </head>
@@ -139,9 +153,11 @@
         <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiNjY5MjU1Y2UtZjBjYi00ZWFkLThiOTctNjQ2ZTYxODdjNmUyIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone12.png" alt=""> Padronização</button>
         <!-- Adicione mais botões com imagens conforme necessário -->
  </div>
+<!-- Área de conteúdo -->
+    <div id="conteudo-novo"></div>
 
-    <!-- Área de conteúdo -->
-    <div id="conteudo"></div>
+    <!-- Botão Voltar -->
+    <button id="voltar" onclick="voltar()">Voltar</button>
 
     <script>
         // Objeto com os usuários e senhas
@@ -163,25 +179,66 @@
                 document.getElementById('loginForm').style.display = 'none';
                 document.getElementById('sucesso').style.display = 'block';
                 document.getElementById('navegacao').style.display = 'block';
-                
+
                 // Ocultar a mensagem de sucesso após 2 segundos
                 setTimeout(function() {
                     document.getElementById('sucesso').style.display = 'none';
                 }, 2000);
+
+                // Exibir os botões de navegação
+                mostrarBotoesNavegacao();
             } else {
                 alert('Senha incorreta. Tente novamente.');
             }
         }
 
-        // Função para carregar o conteúdo da página dentro da área de conteúdo
+        // Função para exibir os botões de navegação
+        function mostrarBotoesNavegacao() {
+            document.getElementById('navegacao').style.display = 'block';
+        }
+
+        // Função
+// Função para carregar o conteúdo da página em uma nova área
         function carregarPagina(url) {
-            var conteudo = document.getElementById('conteudo');
-            conteudo.innerHTML = ''; // Limpa o conteúdo atual
+            var conteudoNovo = document.getElementById('conteudo-novo');
+            var navegacao = document.getElementById('navegacao');
+            var voltarBotao = document.getElementById('voltar');
+
+            // Ocultar botões de navegação
+            navegacao.style.display = 'none';
+
+            // Exibir botão voltar
+            voltarBotao.style.display = 'block';
+
+            // Carregar o conteúdo na nova área
             var iframe = document.createElement('iframe');
             iframe.classList.add('conteudo-iframe');
             iframe.src = url;
-            conteudo.appendChild(iframe);
+            conteudoNovo.appendChild(iframe);
         }
+
+        // Função para voltar à página anterior
+        function voltar() {
+            var conteudoNovo = document.getElementById('conteudo-novo');
+            var navegacao = document.getElementById('navegacao');
+            var voltarBotao = document.getElementById('voltar');
+
+            // Limpar conteúdo
+            conteudoNovo.innerHTML = '';
+
+            // Exibir botões de navegação
+            navegacao.style.display = 'block';
+
+            // Ocultar botão voltar
+            voltarBotao.style.display = 'none';
+        }
+
+// Adicionar evento de escuta no formulário de login para capturar a tecla Enter
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Impedir o envio do formulário
+    verificarLogin(); // Chamar a função verificarLogin
+});
+
     </script>
 </body>
 </html>
