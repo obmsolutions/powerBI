@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores Geolab Ver.2</title>
+    <title>Indicadores Geolab Ver.3</title>
     <style>
         /* Estilos para o formulário de login */
         #loginForm {
@@ -125,8 +125,8 @@
     <!-- Botões de navegação -->
     <div id="navegacao" style="display: none;">
 
-        <!-- Adicione imagens aos botões -->
-    <button onclick="carregarPagina('https://app.powerbi.com/reportEmbed?reportId=1a4205aa-9b75-43ed-b904-4e07c395a60d&appId=24c347ee-c403-423c-bae3-a33610234ae5&autoAuth=true&ctid=c4722be1-630a-4fbf-b592-a2128a1b4171')"><img src="icone1.png" alt=""> Acomp. Produção</button>
+        <!-- Botão que todos os usuários podem acessar -->
+ <button onclick="carregarPagina('https://app.powerbi.com/reportEmbed?reportId=1a4205aa-9b75-43ed-b904-4e07c395a60d&appId=24c347ee-c403-423c-bae3-a33610234ae5&autoAuth=true&ctid=c4722be1-630a-4fbf-b592-a2128a1b4171')"><img src="icone1.png" alt=""> Acomp. Produção</button>
 
         <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiYjM5YTdlODItYjA0ZC00M2MwLWI1NjQtYWNkZTdjYzE5ZGJmIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone2.png" alt=""> OEE</button>
 
@@ -152,9 +152,14 @@
 
         <button onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiZTcwNTgzMDItZjZkNC00YzIxLWE0Y2UtZDY3MTgyNGVhNjRmIiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone13.png" alt=""> Nº de Paradas</button>
 
+        <!-- Botão acessível apenas ao usuário Excelência -->
+ 
+     <button id="btnPlanoAcao" style="display:none;" onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiMzQxNzkyZmUtNDQwNi00ZWU0LTk3ZDQtY2Y4YmU1YzJmNTY4IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone14.png" alt=""> Plano de Ação</button>
+
         <!-- Adicione mais botões com imagens conforme necessário -->
- </div>
-<!-- Área de conteúdo -->
+    </div>
+    
+    <!-- Área de conteúdo -->
     <div id="conteudo-novo"></div>
 
     <!-- Botão Voltar -->
@@ -187,19 +192,23 @@
                 }, 2000);
 
                 // Exibir os botões de navegação
-                mostrarBotoesNavegacao();
+                mostrarBotoesNavegacao(usuarioSelecionado);
             } else {
                 alert('Senha incorreta. Tente novamente.');
             }
         }
 
-        // Função para exibir os botões de navegação
-        function mostrarBotoesNavegacao() {
+        // Função para exibir os botões de navegação de acordo com o usuário
+        function mostrarBotoesNavegacao(usuario) {
             document.getElementById('navegacao').style.display = 'block';
+            if (usuario === 'Analista') {
+                document.getElementById('btnOEE').style.display = 'block';
+            } else if (usuario === 'Excelência') {
+                document.getElementById('btnPlanoAcao').style.display = 'block';
+            }
         }
 
-        // Função
-// Função para carregar o conteúdo da página em uma nova área
+        // Função para carregar o conteúdo da página em uma nova área
         function carregarPagina(url) {
             var conteudoNovo = document.getElementById('conteudo-novo');
             var navegacao = document.getElementById('navegacao');
@@ -214,7 +223,7 @@
             // Carregar o conteúdo na nova área
             var iframe = document.createElement('iframe');
             iframe.classList.add('conteudo-iframe');
-            iframe.src = url;
+iframe.src = url;
             conteudoNovo.appendChild(iframe);
         }
 
@@ -234,11 +243,11 @@
             voltarBotao.style.display = 'none';
         }
 
-// Adicionar evento de escuta no formulário de login para capturar a tecla Enter
-document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Impedir o envio do formulário
-    verificarLogin(); // Chamar a função verificarLogin
-});
+        // Adicionar evento de escuta no formulário de login para capturar a tecla Enter
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impedir o envio do formulário
+            verificarLogin(); // Chamar a função verificarLogin
+        });
 
     </script>
 </body>
