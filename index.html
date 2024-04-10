@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores Geolab Ver 1.4</title>
+    <title>Indicadores Geolab Ver 1.5</title>
     <style>
         /* Estilos para o formulário de login */
         #loginForm {
@@ -57,13 +57,24 @@
         }
 
         /* Estilos para os ícones */
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            fill: #777;
+        }
+        /* Estilos para os ícones da Área de Conteúdo*/
         #navegacao img {
             width: 24px; /* Ajuste o tamanho conforme necessário */
             height: 24px; /* Ajuste o tamanho conforme necessário */
             vertical-align: middle; /* Centraliza o ícone verticalmente */
             margin-right: 5px; /* Adiciona um pequeno espaço entre o ícone e o texto do botão */
             filter: brightness(0) invert(1); /* Inverter a cor da imagem para branco */
-        }
+       }
 
         /* Estilos para o iframe */
         .conteudo-iframe {
@@ -115,6 +126,15 @@
             cursor: pointer;
             display: none; /* Ocultar inicialmente */
         }
+
+        /* Estilos para os ícones dos botões de navegação */
+        #navegacao .toggle-password {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 5px;
+            filter: brightness(0) invert(1);
+        }
     </style>
 </head>
 <body>
@@ -129,7 +149,10 @@
             <option value="Excelência">Excelência</option>
         </select>
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha">
+        <div style="position: relative;">
+            <input type="password" id="senha" name="senha">
+            <img src="eye-off.png" class="toggle-password" title="Mostrar senha" alt="Mostrar senha">
+        </div>
         <button type="button" onclick="verificarLogin()">Entrar</button>
     </form>
 
@@ -173,7 +196,7 @@
         <!-- Adicione mais botões com imagens conforme necessário -->
     </div>
     
-     <!-- Área de conteúdo -->
+    <!-- Área de conteúdo -->
     <div id="conteudo-novo"></div>
 
     <!-- Botão Voltar -->
@@ -262,6 +285,24 @@
         function sair() {
             window.location.href = window.location.origin + window.location.pathname; // Redirecionar para a página inicial
         }
+
+        // Função para exibir/esconder a senha ao clicar no ícone de "olho"
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            var campoSenha = document.getElementById('senha');
+            if (campoSenha.type === 'password') {
+                campoSenha.type = 'text';
+                this
+.type = 'text';
+                this.src = 'eye.png'; // Altera o ícone para olho aberto
+                this.alt = 'Ocultar senha';
+                this.title = 'Ocultar senha';
+            } else {
+                campoSenha.type = 'password';
+                this.src = 'eye-off.png'; // Altera o ícone para olho fechado
+                this.alt = 'Mostrar senha';
+                this.title = 'Mostrar senha';
+            }
+        });
     </script>
 </body>
 </html>
