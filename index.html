@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores Geolab Ver 1.5</title>
+    <title>Indicadores Geolab Ver 1.3</title>
     <style>
         /* Estilos para o formulário de login */
         #loginForm {
@@ -57,24 +57,13 @@
         }
 
         /* Estilos para os ícones */
-        .toggle-password {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            fill: #777;
-        }
-        /* Estilos para os ícones da Área de Conteúdo*/
         #navegacao img {
             width: 24px; /* Ajuste o tamanho conforme necessário */
             height: 24px; /* Ajuste o tamanho conforme necessário */
             vertical-align: middle; /* Centraliza o ícone verticalmente */
             margin-right: 5px; /* Adiciona um pequeno espaço entre o ícone e o texto do botão */
             filter: brightness(0) invert(1); /* Inverter a cor da imagem para branco */
-       }
+        }
 
         /* Estilos para o iframe */
         .conteudo-iframe {
@@ -112,29 +101,6 @@
             cursor: pointer;
             display: none; /* Ocultar inicialmente */
         }
-
-        /* Estilos para o botão sair */
-        #sair {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #ff0000;
-            color: #fff;
-            cursor: pointer;
-            display: none; /* Ocultar inicialmente */
-        }
-
-        /* Estilos para os ícones dos botões de navegação */
-        #navegacao .toggle-password {
-            width: 24px;
-            height: 24px;
-            vertical-align: middle;
-            margin-right: 5px;
-            filter: brightness(0) invert(1);
-        }
     </style>
 </head>
 <body>
@@ -149,10 +115,7 @@
             <option value="Excelência">Excelência</option>
         </select>
         <label for="senha">Senha:</label>
-        <div style="position: relative;">
-            <input type="password" id="senha" name="senha">
-            <img src="eye-off.png" class="toggle-password" title="Mostrar senha" alt="Mostrar senha">
-        </div>
+        <input type="password" id="senha" name="senha">
         <button type="button" onclick="verificarLogin()">Entrar</button>
     </form>
 
@@ -202,9 +165,6 @@
     <!-- Botão Voltar -->
     <button id="voltar" onclick="voltar()">Voltar</button>
 
-    <!-- Botão Sair -->
-    <button id="sair" onclick="sair()">Sair</button>
-
     <script>
         // Objeto com os usuários e senhas
         var usuarios = {
@@ -232,16 +192,20 @@
                 }, 2000);
 
                 // Exibir os botões de navegação
-                mostrarBotoesNavegacao();
+                mostrarBotoesNavegacao(usuarioSelecionado);
             } else {
                 alert('Senha incorreta. Tente novamente.');
             }
         }
 
-        // Função para exibir os botões de navegação
-        function mostrarBotoesNavegacao() {
+        // Função para exibir os botões de navegação de acordo com o usuário
+        function mostrarBotoesNavegacao(usuario) {
             document.getElementById('navegacao').style.display = 'block';
-            document.getElementById('sair').style.display = 'block'; // Mostrar o botão sair
+            if (usuario === 'Analista') {
+                document.getElementById('btnOEE').style.display = 'block';
+            } else if (usuario === 'Excelência') {
+                document.getElementById('btnPlanoAcao').style.display = 'block';
+            }
         }
 
         // Função para carregar o conteúdo da página em uma nova área
@@ -252,7 +216,6 @@
 
             // Ocultar botões de navegação
             navegacao.style.display = 'none';
-            document.getElementById('sair').style.display = 'none'; // Ocultar o botão sair
 
             // Exibir botão voltar
             voltarBotao.style.display = 'block';
@@ -260,7 +223,7 @@
             // Carregar o conteúdo na nova área
             var iframe = document.createElement('iframe');
             iframe.classList.add('conteudo-iframe');
-            iframe.src = url;
+iframe.src = url;
             conteudoNovo.appendChild(iframe);
         }
 
@@ -275,34 +238,17 @@
 
             // Exibir botões de navegação
             navegacao.style.display = 'block';
-            document.getElementById('sair').style.display = 'block'; // Mostrar o botão sair
 
             // Ocultar botão voltar
             voltarBotao.style.display = 'none';
         }
 
-        // Função para sair e retornar à página inicial
-        function sair() {
-            window.location.href = window.location.origin + window.location.pathname; // Redirecionar para a página inicial
-        }
-
-        // Função para exibir/esconder a senha ao clicar no ícone de "olho"
-        document.querySelector('.toggle-password').addEventListener('click', function() {
-            var campoSenha = document.getElementById('senha');
-            if (campoSenha.type === 'password') {
-                campoSenha.type = 'text';
-                this
-.type = 'text';
-                this.src = 'eye.png'; // Altera o ícone para olho aberto
-                this.alt = 'Ocultar senha';
-                this.title = 'Ocultar senha';
-            } else {
-                campoSenha.type = 'password';
-                this.src = 'eye-off.png'; // Altera o ícone para olho fechado
-                this.alt = 'Mostrar senha';
-                this.title = 'Mostrar senha';
-            }
+        // Adicionar evento de escuta no formulário de login para capturar a tecla Enter
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Impedir o envio do formulário
+            verificarLogin(); // Chamar a função verificarLogin
         });
+
     </script>
 </body>
 </html>
