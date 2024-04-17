@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indicadores Geolab Ver 1.3</title>
+    <title>Indicadores Geolab Ver 1.4.1</title>
     <style>
         /* Estilos para o formulário de login */
         #loginForm {
@@ -101,6 +101,31 @@
             cursor: pointer;
             display: none; /* Ocultar inicialmente */
         }
+
+        /* Estilos para o botão sair */
+        #sair {
+            position: fixed;
+            bottom: 20px;
+            right: 80px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff0000;
+            color: #fff;
+            cursor: pointer;
+            display: none; /* Ocultar inicialmente */
+        }
+
+        /* Estilos para o ícone do olho */
+        .eye-icon {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 <body>
@@ -116,6 +141,7 @@
         </select>
         <label for="senha">Senha:</label>
         <input type="password" id="senha" name="senha">
+        <img class="eye-icon" src="eye-off.png" alt="Mostrar Senha">
         <button type="button" onclick="verificarLogin()">Entrar</button>
     </form>
 
@@ -156,99 +182,114 @@
  
      <button id="btnPlanoAcao" style="display:none;" onclick="carregarPagina('https://app.powerbi.com/view?r=eyJrIjoiMzQxNzkyZmUtNDQwNi00ZWU0LTk3ZDQtY2Y4YmU1YzJmNTY4IiwidCI6ImM0NzIyYmUxLTYzMGEtNGZiZi1iNTkyLWEyMTI4YTFiNDE3MSJ9')"><img src="icone14.png" alt=""> Plano de Ação</button>
 
-        <!-- Adicione mais botões com imagens conforme necessário -->
-    </div>
+       <!-- Adicione mais botões com imagens conforme necessário -->
+</div>
     
-    <!-- Área de conteúdo -->
-    <div id="conteudo-novo"></div>
+<!-- Área de conteúdo -->
+<div id="conteudo-novo"></div>
 
-    <!-- Botão Voltar -->
-    <button id="voltar" onclick="voltar()">Voltar</button>
+<!-- Botão Voltar -->
+<button id="voltar" onclick="voltar()">Voltar</button>
 
-    <script>
-        // Objeto com os usuários e senhas
-        var usuarios = {
-            'Analista': 'Geolab@1',
-            'Coordenacão': 'Geolab@2',
-            'Gerência': 'Geolab@3',
-            'Excelência': 'Geolab@4',
-            'Diretoria': 'Geolab@5',
-        };
+<!-- Botão Sair -->
+<button id="sair" onclick="sair()">Sair</button>
 
-        // Função para verificar o login
-        function verificarLogin() {
-            var usuarioSelecionado = document.getElementById('usuario').value;
-            var senhaDigitada = document.getElementById('senha').value;
+<script>
+    // Objeto com os usuários e senhas
+    var usuarios = {
+        'Analista': 'Geolab@1',
+        'Coordenacão': 'Geolab@2',
+        'Gerência': 'Geolab@3',
+        'Excelência': 'Geolab@4',
+        'Diretoria': 'Geolab@5',
+    };
 
-            // Verificar se a senha digitada corresponde à senha correta
-            if (usuarios[usuarioSelecionado] === senhaDigitada) {
-                document.getElementById('loginForm').style.display = 'none';
-                document.getElementById('sucesso').style.display = 'block';
-                document.getElementById('navegacao').style.display = 'block';
+    // Função para verificar o login
+    function verificarLogin() {
+        var usuarioSelecionado = document.getElementById('usuario').value;
+        var senhaDigitada = document.getElementById('senha').value;
 
-                // Ocultar a mensagem de sucesso após 2 segundos
-                setTimeout(function() {
-                    document.getElementById('sucesso').style.display = 'none';
-                }, 2000);
-
-                // Exibir os botões de navegação
-                mostrarBotoesNavegacao(usuarioSelecionado);
-            } else {
-                alert('Senha incorreta. Tente novamente.');
-            }
-        }
-
-        // Função para exibir os botões de navegação de acordo com o usuário
-        function mostrarBotoesNavegacao(usuario) {
+        // Verificar se a senha digitada corresponde à senha correta
+        if (usuarios[usuarioSelecionado] === senhaDigitada) {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('sucesso').style.display = 'block';
             document.getElementById('navegacao').style.display = 'block';
-            if (usuario === 'Analista') {
-                document.getElementById('btnOEE').style.display = 'block';
-            } else if (usuario === 'Excelência') {
-                document.getElementById('btnPlanoAcao').style.display = 'block';
-            }
+
+            // Ocultar a mensagem de sucesso após 2 segundos
+            setTimeout(function() {
+                document.getElementById('sucesso').style.display = 'none';
+            }, 2000);
+
+            // Exibir os botões de navegação
+            mostrarBotoesNavegacao();
+        } else {
+            alert('Senha incorreta. Tente novamente.');
         }
+    }
 
-        // Função para carregar o conteúdo da página em uma nova área
-        function carregarPagina(url) {
-            var conteudoNovo = document.getElementById('conteudo-novo');
-            var navegacao = document.getElementById('navegacao');
-            var voltarBotao = document.getElementById('voltar');
+    // Função para exibir os botões de navegação
+    function mostrarBotoesNavegacao() {
+        document.getElementById('navegacao').style.display = 'block';
+        document.getElementById('sair').style.display = 'block'; // Mostrar o botão sair
+    }
 
-            // Ocultar botões de navegação
-            navegacao.style.display = 'none';
+    // Função para carregar o conteúdo da página em uma nova área
+    function carregarPagina(url) {
+        var conteudoNovo = document.getElementById('conteudo-novo');
+        var navegacao = document.getElementById('navegacao');
+        var voltarBotao = document.getElementById('voltar');
 
-            // Exibir botão voltar
-            voltarBotao.style.display = 'block';
+        // Ocultar botões de navegação
+        navegacao.style.display = 'none';
+        document.getElementById('sair').style.display = 'none'; // Ocultar o botão sair
 
-            // Carregar o conteúdo na nova área
-            var iframe = document.createElement('iframe');
-            iframe.classList.add('conteudo-iframe');
-iframe.src = url;
-            conteudoNovo.appendChild(iframe);
+        // Exibir botão voltar
+        voltarBotao.style.display = 'block';
+
+        // Carregar o conteúdo na nova área
+        var iframe = document.createElement('iframe');
+        iframe.classList.add('conteudo-iframe');
+        iframe.src = url;
+        conteudoNovo.appendChild(iframe);
+    }
+
+    // Função para voltar à página anterior
+    function voltar() {
+        var conteudoNovo = document.getElementById('conteudo-novo');
+        var navegacao = document.getElementById('navegacao');
+        var voltarBotao = document.getElementById('voltar');
+
+        // Limpar conteúdo
+        conteudoNovo.innerHTML = '';
+
+        // Exibir botões de navegação
+        navegacao.style.display = 'block';
+        document.getElementById('sair').style.display = 'block'; // Mostrar o botão sair
+
+        // Ocultar botão voltar
+        voltarBotao.style.display = 'none';
+    }
+
+    // Função para sair e retornar à página inicial
+    function sair() {
+        window.location.href = window.location.origin + window.location.pathname; // Redirecionar para a página inicial
+    }
+
+    // Função para alternar a visibilidade da senha
+    document.querySelector('.eye-icon').addEventListener('click', togglePasswordVisibility);
+
+    function togglePasswordVisibility() {
+        var senhaInput = document.getElementById('senha');
+        var eyeIcon = document.querySelector('.eye-icon');
+
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+            eyeIcon.src = 'eye.png';
+        } else {
+            senhaInput.type = 'password';
+            eyeIcon.src = 'eye-off.png';
         }
-
-        // Função para voltar à página anterior
-        function voltar() {
-            var conteudoNovo = document.getElementById('conteudo-novo');
-            var navegacao = document.getElementById('navegacao');
-            var voltarBotao = document.getElementById('voltar');
-
-            // Limpar conteúdo
-            conteudoNovo.innerHTML = '';
-
-            // Exibir botões de navegação
-            navegacao.style.display = 'block';
-
-            // Ocultar botão voltar
-            voltarBotao.style.display = 'none';
-        }
-
-        // Adicionar evento de escuta no formulário de login para capturar a tecla Enter
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Impedir o envio do formulário
-            verificarLogin(); // Chamar a função verificarLogin
-        });
-
-    </script>
+    }
+</script>
 </body>
 </html>
